@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script src="{% static '/js/specialist/constants.js'%}"></script>
+        <script src="{% static '/js/specialist/indexspecialist.js'%}"></script>
+
+    
+    <style>
+        .specialist_item
+        {
+            font-size: x-large;
+        }
+        html, body
+        {
+            height: 100%;
+        }
+        .content
+        {
+            min-height: 100%;
+        }
+    </style>
+    
+    
+    
+</head>
+<body>
+    <div class="content conainer-fluid">
+
+    </div>
+    <script>
+        var controler = new SpecialistController(".content");
+        controler.start();
+        window.onhashchange = function() {
+            controler.start();
+        }
+    </script>
+
+</body>
+
+</html>
