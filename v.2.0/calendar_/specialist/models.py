@@ -10,6 +10,7 @@ class ModeJobSpecialist(models.Model):
     duration_job_minutes = models.IntegerField()
     duration_brake_minutes = models.IntegerField()
     future_job_days = models.IntegerField(default = 90)
+    
 
 
 

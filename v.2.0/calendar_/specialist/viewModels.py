@@ -64,4 +64,8 @@ class TimeResponse:
 class RequestAppointment:
     def __init__(self, time_slot_id):
         self.time_slot_id = time_slot_id
+
+class EmailValidation:
+    def __init__(self, e_mail):
+        self.e_mail = e_mail
         

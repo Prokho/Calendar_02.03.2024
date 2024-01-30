@@ -11,7 +11,7 @@ from .serializers import *
 from .viewModels import *
 from .utils import*
 from appointment.models import Time_slot, Appointment
-from appointment.serializers import Time_slotSerializer, TimeSlotSerializer, AppointmentSerializer
+from appointment.serializers import Time_slotSerializer, TimeSlotSerializer, AppointmentSerializer, SpecialistSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -251,4 +251,27 @@ def getRequestSchedularDay(request):
     return Response(serializer_days.data)
 
 
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def getIdSpecialist(request): 
+    
+    serializer = EmailValidationSerializer(data = request.data) 
+    if not serializer.is_valid():
+        return Response(serializer.errors)
+    request_email = serializer.create(serializer.validated_data)  
+    email = request_email.e_mail
+    pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    if not re.match(pattern, email):    
+        return Response({"error": "such email is not valid"})
+    specialist = User.objects.filter(email=request_email.e_mail).first()
+    if not specialist:
+        return Response({"error": "such email not found"})
+    serializer_e_mail = SpecialistSerializer(specialist)
+    return Response(serializer_e_mail.data)
+
+# написать новый сериалайзер который принимает емейл и валитизирует его (проверяет его), проверить что есть @
+# переписать всю вьюшку, чтобы по емейлу находили специалиста и извлекали его емейл
+# написать респонсспециалистайди сериалайзер который будет сериализовать эти данный см 250,251
+# наши вьюшки обычно содержат 2 сериалайзера
 

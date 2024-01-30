@@ -163,4 +163,19 @@ def apointmentTransferRequest(request):
     return Response(serializer_appointment.data)
 
 
-    #test
+@api_view(["POST"])
+def getIdSpecialist(request):  # в соответствии с апи клиента получаем список специалистов через эту функцию
+    print(request.data['begin']) # в запросе от клиента приходят данные в виде словаря: {"begin": "2021-09-22","end": "2023-09-23"}, вид запроса описан в документации
+    serializer = DataRangeSerializer(data = request.data) # создали сериализатор, чтобы десериализовать данные (из строки преврвтить их в обьект с набором полей (атрибутов) для удобства работы)
+    # сам сериализатор и его поля созданы в сериалайзер пай дата рендж.
+    if not serializer.is_valid(): # валидизируем данные полученные от пользователя
+        return Response(serializer.errors) #сообщение об ошибке
+    data_range = serializer.create(serializer.validated_data) # возвращает объект класса DataRange (данные в виде словаря, полученные в serializer, преобразуются в обьект ), validated_data - находится под капотом и это словарь, котрый прошел валидацию джанго
+    # - код проверки здесь
+    specialist_id = data_range.specialist_id
+   
+    #if Time_slot.objects.filter(user__id=data_range.specialist_id)==False:
+    if not User.objects.filter(id = specialist_id).first():
+        return Response({"error": "such specialist_id is not exist"})
+    
+    return Response(specialist_id)

@@ -174,6 +174,7 @@ class PhoneVaidateRequestSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return PhoneVaidateRequest(**validated_data)
+    
 
 class ApointmentRequestSerializer(serializers.Serializer):
     phone = serializers.CharField()
@@ -192,7 +193,7 @@ class DeleteAppointmentRequestSerializer(serializers.Serializer):
     def create(self, validated_data):
         return DeleteAppointmentRequest(**validated_data)
 
-#Dom
+
 class TransferAppointmentRequestSerializer(serializers.Serializer):
     appointment_id = serializers.IntegerField()
     timeslot_id = serializers.IntegerField()

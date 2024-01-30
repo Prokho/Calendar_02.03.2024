@@ -11,6 +11,7 @@ from .views import *
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
 #    path('', include(router.urls)),
+    path('specialistId/', getIdSpecialist),#дз 17.12.2023
     path('requestCreateTimeSlot/', requestCreateTimeSlot), #создали урлы согласно API
     path('addApointment/', addApointment),
     path('list_apointment/', listApointment),

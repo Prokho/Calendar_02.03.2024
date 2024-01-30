@@ -3,6 +3,7 @@ from .viewModels import *
 from .models import *
 from rest_framework import serializers
 from appointment.serializers import Time_slotSerializer, TimeSlotSerializer, AppointmentSerializer
+import re
 
 
 
@@ -80,10 +81,22 @@ class TimeResponseSerializer(serializers.Serializer):
     def create(self, validated_data):
         return TimeResponse(**validated_data)
 
+
 class RequestAppointmentSerializer(serializers.Serializer):
     time_slot_id = serializers.IntegerField()
     def create(self, validated_data):
         return RequestAppointment(**validated_data)
+    
+
+    
+
+class EmailValidationSerializer(serializers.Serializer):
+    e_mail = serializers.CharField()
+    def create(self, validated_data):
+        return EmailValidation(**validated_data)
+        
+    
+
 
 
 
